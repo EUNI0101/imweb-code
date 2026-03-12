@@ -1,0 +1,35 @@
+<div class="booking-wrap" id="bookingCartPage">
+  <div class="booking-card cart-box">
+    <div class="cart-top">
+      <label class="cart-checkline">
+        <input type="checkbox" data-role="all-check" checked>
+        <span>전체선택 (<span data-role="cart-count">0</span>)</span>
+      </label>
+
+      <button type="button" class="booking-btn-light" style="min-height:42px;padding:0 18px;font-size:15px;" data-role="delete-selected">
+        선택 삭제
+      </button>
+    </div>
+
+    <div class="booking-divider"></div>
+
+    <div class="cart-section-title">
+      <input type="checkbox" checked disabled>
+      <span>이벤트 (<span data-role="cart-count">0</span>)</span>
+    </div>
+
+    <div class="cart-list" data-role="cart-list"></div>
+  </div>
+
+  <div class="cart-bottom">
+    <button type="button" class="booking-btn" style="min-width:300px;" data-role="cart-reserve-btn">
+      예약하기
+    </button>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  initCartPage('#bookingCartPage');
+});
+</script>
