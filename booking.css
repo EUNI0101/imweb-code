@@ -1,0 +1,549 @@
+<style>
+:root{
+  --bk-text:#111827;
+  --bk-sub:#6b7280;
+  --bk-line:#d9d9d9;
+  --bk-soft:#f5f5f5;
+  --bk-soft2:#f8f8f8;
+  --bk-point:#5a5a5a;
+  --bk-dark:#4b4b4b;
+  --bk-btn:#5a5a5a;
+  --bk-btn-text:#fff;
+  --bk-btn-light:#d9d9d9;
+  --bk-radius:18px;
+  --bk-radius-sm:12px;
+  --bk-shadow:0 4px 20px rgba(0,0,0,.06);
+}
+
+.booking-wrap{
+  max-width:1200px;
+  margin:0 auto;
+  color:var(--bk-text);
+  font-family:'Pretendard','Noto Sans KR',sans-serif;
+}
+
+.booking-card{
+  background:#fff;
+  border:1px solid #ececec;
+  border-radius:24px;
+  box-shadow:var(--bk-shadow);
+}
+
+.booking-btn,
+.booking-btn-light,
+.booking-chip,
+.booking-time-btn{
+  font-family:inherit;
+  cursor:pointer;
+  transition:.2s ease;
+}
+
+.booking-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:58px;
+  padding:0 24px;
+  border:none;
+  border-radius:12px;
+  background:var(--bk-btn);
+  color:var(--bk-btn-text);
+  font-size:18px;
+  font-weight:700;
+}
+
+.booking-btn:hover{opacity:.92;}
+
+.booking-btn-light{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:58px;
+  padding:0 24px;
+  border:none;
+  border-radius:12px;
+  background:var(--bk-btn-light);
+  color:#333;
+  font-size:18px;
+  font-weight:700;
+}
+
+.booking-btn-light:hover{opacity:.92;}
+
+.booking-title{
+  font-size:20px;
+  font-weight:800;
+  margin:0 0 18px;
+}
+
+.booking-divider{
+  height:1px;
+  background:var(--bk-line);
+  margin:24px 0;
+}
+
+/* 상세 페이지 */
+.svc-detail{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:48px;
+  align-items:start;
+}
+
+.svc-detail__thumb img{
+  width:100%;
+  display:block;
+  border-radius:0;
+}
+
+.svc-detail__title{
+  font-size:34px;
+  line-height:1.25;
+  font-weight:800;
+  margin:4px 0 24px;
+}
+
+.svc-detail__desc{
+  font-size:18px;
+  line-height:1.8;
+  color:#222;
+}
+
+.svc-price-box{
+  margin-top:34px;
+  border:1px solid #2d2d2d;
+  border-radius:12px;
+  padding:28px 26px;
+  position:relative;
+}
+
+.svc-price-box__check{
+  position:absolute;
+  top:18px;
+  right:18px;
+}
+
+.svc-price-box__name{
+  font-size:18px;
+  font-weight:800;
+  margin-bottom:18px;
+}
+
+.svc-price-row{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:16px;
+}
+
+.svc-price-main{
+  display:flex;
+  align-items:flex-end;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.svc-price-main strong{
+  font-size:24px;
+  font-weight:900;
+  line-height:1;
+}
+
+.svc-price-main span{
+  font-size:16px;
+  color:#aaa;
+  text-decoration:line-through;
+  font-weight:600;
+  line-height:1.2;
+}
+
+.svc-discount-badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:52px;
+  height:34px;
+  border-radius:999px;
+  background:#efefef;
+  color:#666;
+  font-weight:800;
+  font-size:16px;
+}
+
+.svc-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:20px;
+}
+
+/* 장바구니 페이지 */
+.cart-box{
+  padding:40px 44px;
+}
+
+.cart-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+}
+
+.cart-checkline{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:18px;
+  font-weight:800;
+}
+
+.cart-section-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:18px;
+  font-weight:800;
+}
+
+.cart-list{
+  margin-top:18px;
+}
+
+.cart-item{
+  display:grid;
+  grid-template-columns:1fr auto auto;
+  gap:20px;
+  align-items:center;
+  padding:22px 0;
+  border-top:1px solid var(--bk-line);
+}
+
+.cart-item__name{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:18px;
+  font-weight:700;
+}
+
+.cart-item__price{
+  text-align:right;
+  min-width:160px;
+}
+
+.cart-item__price del{
+  display:block;
+  color:#aaa;
+  font-size:15px;
+  margin-bottom:4px;
+  font-weight:600;
+}
+
+.cart-item__price strong{
+  font-size:22px;
+  font-weight:900;
+}
+
+.cart-remove{
+  background:none;
+  border:none;
+  font-size:30px;
+  line-height:1;
+  color:#222;
+  cursor:pointer;
+}
+
+.cart-bottom{
+  text-align:center;
+  margin-top:44px;
+}
+
+/* 예약 페이지 */
+.booking-section{
+  padding:40px 44px;
+  margin-bottom:24px;
+}
+
+.booking-subtitle{
+  font-size:18px;
+  font-weight:800;
+  margin:0 0 18px;
+}
+
+.booking-grid{
+  display:grid;
+  grid-template-columns:420px 1fr;
+  gap:24px;
+}
+
+.calendar-box,
+.time-box{
+  background:#f3f3f3;
+  border-radius:16px;
+  padding:22px;
+}
+
+.calendar-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+}
+
+.calendar-header button{
+  border:none;
+  background:none;
+  font-size:26px;
+  cursor:pointer;
+  padding:4px 10px;
+}
+
+.calendar-title{
+  font-size:24px;
+  font-weight:800;
+}
+
+.calendar-weekdays,
+.calendar-days{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:10px;
+}
+
+.calendar-weekdays div{
+  text-align:center;
+  font-weight:700;
+  color:#222;
+  padding-bottom:6px;
+}
+
+.calendar-day{
+  height:46px;
+  border-radius:999px;
+  border:none;
+  background:#fff;
+  font-size:18px;
+  cursor:pointer;
+}
+
+.calendar-day.is-empty{
+  visibility:hidden;
+}
+
+.calendar-day.is-disabled{
+  background:transparent;
+  color:#c8c8c8;
+  cursor:not-allowed;
+}
+
+.calendar-day.is-selected{
+  background:#111;
+  color:#fff;
+  font-weight:800;
+}
+
+.time-grid{
+  display:grid;
+  grid-template-columns:repeat(5, minmax(70px,1fr));
+  gap:12px;
+}
+
+.booking-time-btn{
+  min-height:44px;
+  padding:0 10px;
+  border:1px solid #d0d0d0;
+  border-radius:999px;
+  background:#fff;
+  font-size:17px;
+}
+
+.booking-time-btn.is-selected{
+  background:#111;
+  color:#fff;
+  border-color:#111;
+  font-weight:800;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:140px minmax(0,1fr);
+  row-gap:24px;
+  column-gap:18px;
+  align-items:center;
+  max-width:720px;
+}
+
+.form-grid label{
+  font-size:18px;
+  font-weight:800;
+}
+
+.booking-input{
+  width:100%;
+  height:52px;
+  border:none;
+  border-bottom:1px solid #cfcfcf;
+  font-size:18px;
+  background:transparent;
+  outline:none;
+}
+
+.radio-group{
+  display:flex !important;
+  flex-direction:row !important;
+  align-items:center !important;
+  gap:20px !important;
+  flex-wrap:nowrap !important;
+}
+
+.radio-group label{
+  display:inline-flex !important;
+  align-items:center !important;
+  gap:6px !important;
+  white-space:nowrap !important;
+  width:auto !important;
+  margin:0 !important;
+  flex:0 0 auto !important;
+}
+
+.radio-group input[type="radio"]{
+  margin:0 !important;
+  flex:0 0 auto !important;
+}
+
+.agree-wrap{
+  margin-top:26px;
+  display:grid;
+  gap:12px;
+}
+
+.agree-wrap label{
+  display:flex;
+  gap:8px;
+  align-items:flex-start;
+  font-size:14px;
+  color:#555;
+  font-weight:500;
+}
+
+.booking-submit-wrap{
+  text-align:center;
+  margin-top:40px;
+}
+
+.empty-box{
+  padding:50px 20px;
+  text-align:center;
+  color:#777;
+  font-size:17px;
+}
+
+/* captcha */
+.captcha-row{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  flex-wrap:wrap;
+  margin-bottom:10px;
+}
+
+.captcha-box{
+  min-width:120px;
+  height:48px;
+  padding:0 16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid #d0d0d0;
+  border-radius:10px;
+  background:#f7f7f7;
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:4px;
+  font-family:monospace;
+}
+
+/* 공통 반응형 */
+@media (max-width:991px){
+  .svc-detail{
+    grid-template-columns:1fr;
+    gap:24px;
+  }
+
+  .booking-grid{
+    grid-template-columns:1fr;
+  }
+
+  .time-grid{
+    grid-template-columns:repeat(3, minmax(70px,1fr));
+  }
+
+  .cart-box,
+  .booking-section{
+    padding:28px 22px;
+  }
+}
+
+@media (max-width:767px){
+  .svc-detail__title{
+    font-size:28px;
+  }
+
+  .svc-detail__desc{
+    font-size:16px;
+  }
+
+  .svc-actions{
+    grid-template-columns:1fr;
+  }
+
+  .cart-item{
+    grid-template-columns:1fr;
+    align-items:start;
+  }
+
+  .cart-item__price{
+    text-align:left;
+    min-width:0;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+    row-gap:12px;
+  }
+
+  .calendar-title{
+    font-size:20px;
+  }
+
+  .calendar-weekdays,
+  .calendar-days{
+    gap:8px;
+  }
+
+  .calendar-day{
+    height:40px;
+    font-size:16px;
+  }
+
+  .time-grid{
+    grid-template-columns:repeat(2, minmax(70px,1fr));
+  }
+
+  .booking-btn,
+  .booking-btn-light{
+    min-height:52px;
+    font-size:17px;
+  }
+
+  .radio-group{
+    gap:16px !important;
+    flex-wrap:nowrap !important;
+  }
+
+  .radio-group label{
+    width:auto !important;
+    display:inline-flex !important;
+  }
+}
+</style>
