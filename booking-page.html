@@ -1,0 +1,116 @@
+<div class="booking-wrap" id="bookingPage">
+  <!-- 예약 시술 -->
+  <section class="booking-card booking-section">
+    <h3 class="booking-title">예약 시술</h3>
+    <div class="booking-divider"></div>
+
+    <div class="cart-section-title" style="margin-bottom:8px;">
+      <span>이벤트</span>
+    </div>
+
+    <div data-role="booking-cart-list"></div>
+  </section>
+
+  <!-- 예약일 및 시간 선택 -->
+  <section class="booking-card booking-section">
+    <h3 class="booking-title">예약일 및 시간 선택</h3>
+    <div class="booking-divider"></div>
+
+    <div class="booking-grid">
+      <div>
+        <div class="booking-subtitle">예약일 선택</div>
+        <div class="calendar-box">
+          <div class="calendar-header">
+            <button type="button" data-role="prev-month">‹</button>
+            <div class="calendar-title" data-role="calendar-title"></div>
+            <button type="button" data-role="next-month">›</button>
+          </div>
+
+          <div class="calendar-weekdays">
+            <div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div>
+          </div>
+
+          <div class="calendar-days" data-role="calendar-days"></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="booking-subtitle">예약시간 선택</div>
+        <div class="time-box">
+          <div class="time-grid" data-role="time-grid"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 예약자 정보 -->
+  <section class="booking-card booking-section">
+    <h3 class="booking-title">예약자 정보 입력</h3>
+    <div class="booking-divider"></div>
+
+    <form data-role="booking-form">
+      <div class="form-grid">
+        <label for="bkName">이름</label>
+        <input type="text" id="bkName" name="name" class="booking-input" placeholder="이름을 입력해주세요.">
+
+        <label for="bkPhone">연락처</label>
+        <input type="text" id="bkPhone" name="phone" class="booking-input" placeholder="연락처를 입력해주세요.">
+
+        <label>상담구분</label>
+        <div class="radio-group">
+          <label><input type="radio" name="consultType" value="초진" checked> 초진</label>
+          <label><input type="radio" name="consultType" value="재진"> 재진</label>
+        </div>
+      </div>
+
+      <div class="form-grid" style="margin-top:24px;">
+        <label for="captchaInput">자동입력방지</label>
+        <div>
+          <div class="captcha-row">
+            <div id="simpleCaptchaCode" class="captcha-box">0000</div>
+
+            <button type="button"
+                    id="refreshCaptchaBtn"
+                    class="booking-btn-light"
+                    style="min-height:48px;padding:0 16px;font-size:15px;">
+              새로고침
+            </button>
+          </div>
+
+          <input type="text"
+                 id="captchaInput"
+                 name="captchaInput"
+                 class="booking-input"
+                 placeholder="왼쪽 숫자를 입력해주세요">
+        </div>
+      </div>
+
+      <div class="agree-wrap">
+        <label>
+          <input type="checkbox" name="agreeSms">
+          <span>서울오라클성형외과 의학구매서 발송하는 시술안내, 공지 등 문자 수신에 동의합니다. (선택)</span>
+        </label>
+
+        <label>
+          <input type="checkbox" name="agreePrivacy">
+          <span>개인정보 처리방침에 동의합니다. (필수)</span>
+        </label>
+      </div>
+
+      <div class="booking-submit-wrap">
+        <button type="submit" class="booking-btn" style="min-width:300px;">시술 예약하기</button>
+      </div>
+
+      <div style="height:0; overflow:hidden; opacity:0;">
+        <label for="website">웹사이트</label>
+        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+      </div>
+    </form>
+  </section>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  initBookingPage('#bookingPage');
+});
+</script>
