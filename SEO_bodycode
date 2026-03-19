@@ -1,0 +1,30 @@
+<style>
+/* 전체 배너 레이아웃 */
+.custom-banner-wrap {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* PC에서 2개씩 */
+  gap: 24px; /* 배너 간 여백 */
+  margin: 40px 0; /* 위아래 전체 여백 */
+}
+
+/* 배너 공통 스타일 */
+.custom-banner img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 마우스오버 효과 */
+.custom-banner img:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* 반응형 (모바일) */
+@media screen and (max-width: 600px) {
+  .custom-banner-wrap {
+    grid-template-columns: 1fr; /* 1개씩 */
+  }
+}
+</style>
