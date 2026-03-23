@@ -1,0 +1,252 @@
+<!-- ===== Gmarket Sans 폰트 로드 ===== -->
+<style>
+@font-face {
+  font-family: 'GmarketSans';
+  font-weight: 300;
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansLight.woff') format('woff');
+}
+@font-face {
+  font-family: 'GmarketSans';
+  font-weight: 500;
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+}
+@font-face {
+  font-family: 'GmarketSans';
+  font-weight: 700;
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff');
+}
+
+/* ===== 프리로더 ===== */
+#gd-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  visibility: visible;
+  overflow: hidden;
+}
+
+/* 배경만 사라지는 레이어 */
+#gd-preloader::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:#ffffff;
+  opacity:1;
+  transition:opacity 0.7s ease;
+  z-index:0;
+}
+
+#gd-preloader.is-hide::before{
+  opacity:0;
+}
+
+/* 완전히 제거 직전 */
+#gd-preloader.is-hide{
+  pointer-events:none;
+}
+
+/* ===== 텍스트를 감싸는 비행용 스테이지 ===== */
+.gd-preloader-stage{
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate3d(0,0,0) scale(1);
+  transform-origin: center center;
+  transition:
+    transform 1.05s cubic-bezier(.22,1,.36,1),
+    opacity 0.72s ease,
+    filter 0.72s ease;
+  will-change: transform, opacity, filter;
+}
+
+/* AI 버튼 쪽으로 날아가는 상태 */
+#gd-preloader.is-launch .gd-preloader-stage{
+  transform:
+    translate3d(var(--gd-fly-x, 0px), var(--gd-fly-y, 0px), 0)
+    scale(var(--gd-fly-scale, 0.18));
+  opacity: 0.2;
+  filter: blur(1px);
+}
+
+/* ===== 텍스트 ===== */
+.gd-preloader-text {
+  color: #3b71ad;
+  font-weight: 700;
+  font-size: clamp(48px, 5vw, 100px);
+  line-height: 1.18;
+  letter-spacing: -0.03em;
+  text-align: center;
+  white-space: pre-line;
+  font-family: 'GmarketSans', sans-serif;
+  position: relative;
+  display: inline-block;
+  min-height: 2.5em;
+}
+
+/* ===== 커서 ===== */
+.gd-preloader-text::after {
+  content: "";
+  display: inline-block;
+  width: 2px;
+  height: 0.95em;
+  margin-left: 8px;
+  background: #3b71ad;
+  vertical-align: -0.08em;
+  animation: gdBlink 0.8s steps(1) infinite;
+}
+
+#gd-preloader.done .gd-preloader-text::after {
+  opacity: 0;
+  animation: none;
+}
+
+@keyframes gdBlink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* ===== 모바일 ===== */
+@media (max-width: 767px) {
+  .gd-preloader-text {
+    font-size: clamp(28px, 9vw, 46px);
+    line-height: 1.22;
+  }
+
+  .gd-preloader-text::after {
+    width: 2px;
+    margin-left: 6px;
+  }
+}
+</style>
+
+<div id="gd-preloader" style="display:none;">
+  <div class="gd-preloader-stage" id="gdPreloaderStage">
+    <div class="gd-preloader-text" id="gdPreloaderTyping"></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var path = window.location.pathname.replace(/\/+$/, '') || '/';
+
+  var isHome =
+    path === '/' ||
+    path === '/Home' ||
+    path === '/Home.html';
+
+  var target = document.getElementById("gdPreloaderTyping");
+  var loader = document.getElementById("gd-preloader");
+  var stage = document.getElementById("gdPreloaderStage");
+
+  if (!target || !loader || !stage) return;
+
+  /* 메인 페이지가 아니면 실행 안 함 */
+  if (!isHome) {
+    loader.parentNode.removeChild(loader);
+    return;
+  }
+
+  /* 메인 페이지일 때만 보이게 */
+  loader.style.display = "flex";
+
+  var text = "디지털임플란트\n완전전환";
+  var i = 0;
+  var typingSpeed = 110;
+  var finishDelay = 550;     // 타이핑 끝난 후 잠깐 멈춤
+  var launchDuration = 1050; // AI 버튼 쪽으로 날아가는 시간
+  var removeDelay = 250;     // 날아간 뒤 살짝 여유 두고 제거
+
+  function getFlyTarget() {
+    /* 퀵메뉴 맨 윗칸(AI 버튼)을 목적지로 사용 */
+    return document.querySelector(".im-floating-quick .fq-ai");
+  }
+
+  function setFlyMotion() {
+    var flyTarget = getFlyTarget();
+    if (!flyTarget) return false;
+
+    var stageRect = stage.getBoundingClientRect();
+    var targetRect = flyTarget.getBoundingClientRect();
+
+    var stageCenterX = stageRect.left + stageRect.width / 2;
+    var stageCenterY = stageRect.top + stageRect.height / 2;
+
+    var targetCenterX = targetRect.left + targetRect.width / 2;
+    var targetCenterY = targetRect.top + targetRect.height / 2;
+
+    var deltaX = targetCenterX - stageCenterX;
+    var deltaY = targetCenterY - stageCenterY;
+
+    /* 목표 박스 크기에 맞춰 적당히 축소 */
+    var scaleX = targetRect.width / stageRect.width;
+    var scaleY = targetRect.height / stageRect.height;
+    var scale = Math.min(scaleX, scaleY) * 0.78;
+
+    /* 너무 작거나 이상해지지 않게 보정 */
+    scale = Math.max(0.12, Math.min(scale, 0.28));
+
+    loader.style.setProperty("--gd-fly-x", deltaX + "px");
+    loader.style.setProperty("--gd-fly-y", deltaY + "px");
+    loader.style.setProperty("--gd-fly-scale", scale);
+
+    return true;
+  }
+
+  function finishPreloader() {
+    loader.classList.add("done");
+
+    setTimeout(function () {
+      var hasTarget = setFlyMotion();
+
+      if (hasTarget) {
+        loader.classList.add("is-launch");
+
+        /* 배경도 조금 뒤에 사라지게 */
+        setTimeout(function () {
+          loader.classList.add("is-hide");
+        }, 180);
+
+        setTimeout(function () {
+          if (loader && loader.parentNode) {
+            loader.parentNode.removeChild(loader);
+          }
+        }, launchDuration + removeDelay);
+      } else {
+        /* AI 버튼 못 찾으면 그냥 부드럽게 사라짐 */
+        loader.classList.add("is-hide");
+
+        setTimeout(function () {
+          if (loader && loader.parentNode) {
+            loader.parentNode.removeChild(loader);
+          }
+        }, 900);
+      }
+    }, finishDelay);
+  }
+
+  function type() {
+    if (i < text.length) {
+      target.textContent += text.charAt(i);
+      i++;
+      setTimeout(type, typingSpeed);
+    } else {
+      finishPreloader();
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function () {
+      setTimeout(type, 50);
+    });
+  } else {
+    setTimeout(type, 50);
+  }
+})();
+</script>
